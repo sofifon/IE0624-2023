@@ -1,44 +1,84 @@
 #include <pic14/pic12f675.h>
  
-//To compile:
-//sdcc -mpic14 -p16f675 blink.c
- 
-//To program the chip using picp:
-//Assuming /dev/ttyUSB0 is the serial port.
- 
-//Erase the chip:
-//picp /dev/ttyUSB0 16f887 -ef
- 
-//Write the program:
-//picp /dev/ttyUSB0 16f887 -wp blink.hex
- 
-//Write the configuration words (optional):
-//picp /dev/ttyUSB0 16f887 -wc 0x2ff4 0x3fff
- 
-//Doing it all at once: erasing, programming, and reading back config words:
-//picp /dev/ttyUSB0 16f887 -ef -wp blink.hex -rc
- 
-//To program the chip using pk2cmd:
-//pk2cmd -M -PPIC16f887 -Fblink.hex
- 
-void delay (unsigned inttiempo);
- 
+void delay (unsigned int tiempo);
+int counter = 0;
+
 void main(void)
 {
-
-    TRISIO = 0b00000000; //Poner todos los pines como salidas
-	GPIO = 0x00; //Poner pines en bajo
+    TRISIO=0b00100000;  //Se deja el pin para el boton en alto para que sea entrada    
+    GPIO = 0; // Poner todos los pines en bajo
+	ANSEL = 0;
+    CMCON = 7;
  
     unsigned int time = 100;
  
     //Loop forever
     while ( 1 )
     {
-			GP0 = 0x00;
-			delay(time);
-
-			GP0 = ~GP0;
-			delay(time);
+		counter = counter + 1;
+		if (GP5 == 1){  // si el boton se presiona
+			if(counter==1){
+				GP0=1;
+				GP1=0;
+				GP2=0;
+				GP4=0;
+				delay(50000);	
+				counter=0;
+				continue;
+			}
+			if(counter==2){
+				GP0=0;
+				GP1=1;
+				GP2=0;
+				GP4=0;
+				delay(50000);	
+				counter=0;
+				continue;
+			}
+			if(counter==3){
+				GP0=1;
+				GP1=1;
+				GP2=0;
+				GP4=0;
+				delay(50000);	
+				counter=0;
+				continue;
+			}
+			if(counter==4)
+			{
+				GP0=0;
+				GP1=1;
+				GP2=1;
+				GP4=0;
+				delay(50000);	
+				counter=0;
+				continue;
+			}
+			if(counter==5)
+			{
+				GP0=1;
+				GP1=1;
+				GP2=1;
+				GP4=0;
+				delay(50000);	
+				counter=0;
+				continue;
+			}
+			if(counter==6)
+			{
+				GP0=0;
+				GP1=1;
+				GP2=1;
+				GP4=1;
+				delay(50000);	
+				counter=0;
+				continue;
+			}
+		}
+		if (counter == 6){
+			counter=0;
+			continue;
+		}
     }
  
 }
