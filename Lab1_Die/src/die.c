@@ -7,7 +7,7 @@ void main(void)
 {
     TRISIO=0b00100000;  //Se deja el pin para el boton en alto para que sea entrada    
     GPIO = 0; // Poner todos los pines en bajo
-	ANSEL = 0;
+    ANSEL = 0;
     CMCON = 7;
  
     unsigned int time = 100;
