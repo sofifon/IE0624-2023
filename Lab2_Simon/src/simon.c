@@ -12,7 +12,7 @@ int guess_length = 4;
 int sequence[14] = {2,1,0,1};
 int sequence_index = 0;
 int i;
-int tiempo = 2;
+int tiempo = 1;
 
 //Definicion de estados para FSM
 #define SG 0 // Start Game
@@ -53,7 +53,7 @@ void CreateSequence(void){
 
 void lights_setup() {//funciones para configurar puertos de semaforo
   GIMSK |= 0xD8; // Enables Ports B and C Pin Change Interrupts
-  PCMSK2 |= 0b11111111; // PCINT11 - pD0
+  PCMSK2 |= 0b00000001; // PCINT11 - pD0
   PCMSK1 |= 0b00000001; // PCINT8 - pA0
   //PCMSK0 |= 0b10000000; // PCINT11 - pD0
   DDRB = 0x0F; //Configuracion del puerto
@@ -167,6 +167,7 @@ void statusChange(){
             if (sequence_index == guess_length-1){
               estado = CL;
               sec = 0;
+              msec = 0;
             }
             else{
               estado = SI;
@@ -242,18 +243,18 @@ ISR (TIMER0_OVF_vect){      //Interrupcion por contador
   else intr_count++;
 }
 
-ISR (INT1_vect){        // Interrupcion por boton
+ISR (INT1_vect){        // Interrupcion por boton -amarillo
   color = 3;
 }
 
-ISR (PCINT1_vect){        // Interrupcion por boton
+ISR (PCINT1_vect){        // Interrupcion por boton -rojo
   color = 1;
 }
 
-ISR (PCINT2_vect){        // Interrupcion por boton
+ISR (PCINT2_vect){        // Interrupcion por boton -verde
  color = 0;
 }
 
-ISR (INT0_vect){        // Interrupcion por boton
+ISR (INT0_vect){        // Interrupcion por boton -azul
   color = 2;
 } 
