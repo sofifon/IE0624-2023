@@ -12,7 +12,7 @@ int guess_length = 4;
 int sequence[14] = {2,1,0,1,3,2,0,2,1,0,3,2,1,0};
 int sequence_index = 0;
 int i;
-int tiempo = 1;
+int tiempo = 10;
 int counter = 0;
 int helper;
 
@@ -125,7 +125,7 @@ void statusChange(){
         }
 
 
-      if (sec == tiempo){ // si pasaron 2 segundos cambia a siguiente
+      if (msec == tiempo){ // si pasaron 2 segundos cambia a siguiente
         if (sequence_index >= guess_length-1){
           estado = SI;
           intr_count = 0;
@@ -138,6 +138,8 @@ void statusChange(){
           sequence_index++;
           estado = DS;
           sec = 0;
+          msec = 0;
+          AllOff();
         }
       }
       else{
@@ -196,6 +198,9 @@ void statusChange(){
       msec =0;
       sequence_index = 0;
       guess_length++;
+      if (tiempo > 1){
+        tiempo--;
+      }
       color = 5; // desactiva el boton
       CreateSequence();
       break;
@@ -233,7 +238,7 @@ int main(void)
 }
 
 ISR (TIMER0_OVF_vect){      //Interrupcion por contador
-  if (intr_count == 5){  //cuenta medio segundo para los parpadeps
+  if (intr_count%12 == 0){  //cuenta medio segundo para los parpadeps
     if( estado == SG ){
       Blink();
     }
