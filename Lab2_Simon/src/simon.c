@@ -144,6 +144,7 @@ void statusChange(){
     case SI:
       if (color == 5){
         estado = SI;
+        msec = 0;
       }
       else {
         
@@ -159,25 +160,26 @@ void statusChange(){
         else if (color == 3){
             YellowLight();
         }
-        if (msec == 3){
+        if (msec == 2){
           msec = 0;
-        if (color == sequence[sequence_index]){
+          AllOff();
+          if (color == sequence[sequence_index]){
             color = 5;
-            AllOff();
-            if (sequence_index == guess_length-1){
-              estado = CL;
-              sec = 0;
+            
+              if (sequence_index == guess_length-1){
+                estado = CL;
+                sec = 0;
+                msec = 0;
+              }
+              else{
+                estado = SI;
+                sequence_index++;
+              }
+          } else{
+              AllOff();
+              estado = GF;
               msec = 0;
-            }
-            else{
-              estado = SI;
-              sequence_index++;
-            }
-        } else{
-            AllOff();
-            estado = GF;
-            msec = 0;
-        }
+          }
         }
       }
       break;
@@ -227,7 +229,7 @@ int main(void)
 }
 
 ISR (TIMER0_OVF_vect){      //Interrupcion por contador
-  if (intr_count == 10){  //cuenta medio segundo para los parpadeps
+  if (intr_count == 5){  //cuenta medio segundo para los parpadeps
     if( estado == SG ){
       Blink();
     }
