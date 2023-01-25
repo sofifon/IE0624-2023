@@ -9,10 +9,12 @@ int msec = 0;
 int color = 5;
 int estado;
 int guess_length = 4;
-int sequence[14] = {2,1,0,1};
+int sequence[14] = {2,1,0,1,3,2,0,2,1,0,3,2,1,0};
 int sequence_index = 0;
 int i;
 int tiempo = 1;
+int counter = 0;
+int helper;
 
 //Definicion de estados para FSM
 #define SG 0 // Start Game
@@ -46,7 +48,9 @@ void Blink(void){
 
 void CreateSequence(void){
     for (i = 0; i < guess_length; i++){
-      sequence[i] = intr_count % 4;
+      helper = sequence[i];
+      sequence[i] = sequence[counter%13];
+      sequence[counter%13] = helper;
     }
 }
 
@@ -97,7 +101,7 @@ void statusChange(){
         sequence_index = 0;
         guess_length = 4;
         color = 5; // desactiva el boton
-        //CreateSequence();
+        CreateSequence();
       }
       else{
         estado = SG;
@@ -193,7 +197,7 @@ void statusChange(){
       sequence_index = 0;
       guess_length++;
       color = 5; // desactiva el boton
-      //CreateSequence();
+      CreateSequence();
       break;
 
     case GF:
@@ -243,6 +247,10 @@ ISR (TIMER0_OVF_vect){      //Interrupcion por contador
     ++sec; // cuenta un segundo
   }
   else intr_count++;
+  counter++;
+  if (counter > 1000){
+    counter = 0;
+  }
 }
 
 ISR (INT1_vect){        // Interrupcion por boton -amarillo
