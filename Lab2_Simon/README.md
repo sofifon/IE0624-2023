@@ -1,6 +1,10 @@
 # Laboratorio 2. GPIOs, Timers y FSM
 
-Desarrollara un juego de memoria llamado Simon dice similar al de la figura 1, utilizando leds, botones, el microcontrolador ATtiny4313 y cualquier otro componente que considere necesario. En este juego hay 4 botones que corresponden a 4 leds de colores distintos, la idea consiste en memorizar una secuencia aleatoria de luces para reproducirla posteriormente. Al principio del juego se van encendiendo unos leds en un orden y se debe memorizar qué leds se han encendido y en qué orden para reproducir la secuencia. La dificultad va en aumento conforme se va avanzando de modo que l principio se empieza por memorizar cuatro led y posteriormente se va incrementando el número de leds a memorizar (La secuencia puede tener como máximo un total de 14 leds). Conforme se va incrementando la secuencia el tiempo que duran los leds encendidos se va reduciendo también, al inicio cada led debe durar 2 segundos encendidos, posteriormente por cada incremento de la secuencia se debe reducir este tiempo en 200ms. Para iniciar el juego se puede presionar cualquier boton y como indicacion para el usuario, se parpadean todos los leds 2 veces. El juego finaliza cuando el usuario se equivoca en la secuencia, momento en el cual aparece una indicación que consiste en el parpadeo de todos los leds 3 veces.
-La temporización de los leds se debe realizar utilizando los temporizadores del microcontrolador. Para hacer la lectura de los botones, como también del fin de cuenta del timer, debe realizarlo usando interrupciones (IMPORTANTE). Utilice el modelo de máquinas de estados para programar el microcontrolador, la cantidad de estados queda a criterio propio
+Este proyecto corresponde al segundo laboratorio del curso Lanoratorio de Microcontroladores de la Universidad de Costa Rica. Realizado por Sofia Fonseca Munoz.
 
-[//]: <> (![Simulación de semáforo en SIMULIDE en su estado base de carros avanzando.](informe/images/0-CM.png))
+El laboratorio consiste en el uso del microcontrolador ATtiny4313 y componentes que complementen su uso para la creacion del juego Simon dice. En el juego hay 4 leds y cuatro botones de colores correspondientes entre rojo, azul, verde y amarillo. 
+Para ganar el juego, se debe adivinar la secuencia aleatoria correctamente. Existen 14 secuencias y el tiempo en que se muestra cada una de ellas disminuye en cada nivel. 
+
+Este proyecto fue simulida por medio de Simulide y su funcionamiento se puede en la carpeta src.
+
+[//]: <> (![Simulación de semáforo en SIMULIDE en su estado base de carros avanzando.](informe/images/Simon_circuit.png))
