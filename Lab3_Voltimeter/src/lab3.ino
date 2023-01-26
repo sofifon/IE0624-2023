@@ -21,7 +21,10 @@ void setup() {
 }
 void loop() {
     lcd.clear();
-    volt0 = analogRead(volt0Pin)*48/1023 - 24;
+    volt0 = map(analogRead(volt0Pin), 0, 956, -24, 24);
+    volt1 = map(analogRead(volt1Pin), 0, 956, -24, 24);
+    volt2 = map(analogRead(volt2Pin), 0, 956, -24, 24);
+    volt3 = map(analogRead(volt3Pin), 0, 956, -24, 24);
    
 
  
