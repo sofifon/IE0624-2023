@@ -10,21 +10,51 @@ int volt0Pin = A0;
 int volt1Pin = A1;
 int volt2Pin = A2;
 int volt3Pin = A3;
+int v;
 int switch_pin = 8;
+int ac_switch = 9;
+
+
 
 void setup() {
   lcd.begin(84, 48);
   Serial.begin(9600);
   pinMode(LED, OUTPUT);
-  pinMode(switch_pin, INPUT);   
+  pinMode(switch_pin, INPUT);
+  pinMode(ac_switch, INPUT);   
 
 }
+
+// lectura del valor maximo de la onda
+uint16_t get_max() {
+  uint16_t max_v = 0;
+  for(uint8_t i = 0; i < 100; i++) {
+    uint16_t r = analogRead(volt3Pin);
+    if(max_v < r) max_v = r;
+    delayMicroseconds(200);
+  }
+  return max_v;
+}
+
+
 void loop() {
     lcd.clear();
     volt0 = map(analogRead(volt0Pin), 0, 956, -24, 24);
     volt1 = map(analogRead(volt1Pin), 0, 956, -24, 24);
     volt2 = map(analogRead(volt2Pin), 0, 956, -24, 24);
-    volt3 = map(analogRead(volt3Pin), 0, 956, -24, 24);
+
+    if(digitalRead(ac_switch) == LOW){
+      volt3 = map(analogRead(volt3Pin), 0, 956, -24, 24);
+    }
+    if (digitalRead(ac_switch)== HIGH){
+      char buf[10];
+      uint32_t v = get_max();
+     
+      volt3 = map(v, 0, 475, 0, 24);
+      // calculo de RMS
+      volt3 /= sqrt(2);
+    }
+    
    
 
  
@@ -58,5 +88,5 @@ void loop() {
   }
 
   
-  delay(2000);
+  delay(1000);
  }
