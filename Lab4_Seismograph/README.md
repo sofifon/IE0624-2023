@@ -7,4 +7,4 @@ Agregar dependencias
 Agregar como correrlo
 
 [//]: <> (![Sismografo en ThingsBoard.](informe/images/TemblorTrue.png))
-[//]: <> (![Resultados en STM32f429i.](informe/images/NoCeros.png))
+[//]: <> (![Resultados en STM32f429i.](informe/images/NoCeros.jpg))
