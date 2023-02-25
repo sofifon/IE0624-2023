@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 import serial, time, json, csv
 
-ser = serial.Serial(port = '/dev/ttyACM0', baudrate=115200, timeout=1) 
+ser = serial.Serial(port = '/dev/ttyACM0', baudrate=115200) 
 print("Connected to MCU")
 file = open('datos.csv', 'w')
 writer = csv.writer(file)
