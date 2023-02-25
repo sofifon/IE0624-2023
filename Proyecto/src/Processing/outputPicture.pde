@@ -44,18 +44,20 @@ float[] temps = new float[768];
 String splitString[] = new String[1000];
 float maxTemp = 0;
 float minTemp = 500;
-PImage sunflower;
-PImage leaf;
-PImage rose;
-PImage white;
+PImage middle;
+PImage third;
+PImage second;
+PImage forth;
 PImage background;
-float rose_size;
-float[] still_rose = new float[768];
-float white_size;
-float[] still_white = new float[768];
-float leaf_size;
-float[] still_leaf = new float[768];
-Animation flower;
+float second_size;
+float[] still_second = new float[768];
+float forth_size;
+float[] still_forth = new float[768];
+float third_size;
+float[] still_third = new float[768];
+float middle_size;
+float[] still_middle = new float[768];
+//Animation flower;
 // The statements in the setup() function 
 // execute once when the program begins
 void setup() {
@@ -76,13 +78,14 @@ void setup() {
   // change to HSB color mode, this will make it easier to color
   // code the temperature data
   colorMode(HSB, 360, 100, 100);
-  sunflower = loadImage("sunflower1.png");
-  leaf = loadImage("hojaverde.png");
-  rose = loadImage("rose.png");
-  white = loadImage("blanca.png");
+
+  third = loadImage("third.png");
+  second = loadImage("second.png");
+  forth = loadImage("forth.png");
+  middle = loadImage("first.png");
   background = loadImage("bosque.jpg");
-  flower = new Animation("frame_", 194);
-  rose_size =30;
+  //flower = new Animation("frame_", 194);
+  middle_size =30;
 }
 
 // The statements in draw() are executed until the 
@@ -154,39 +157,49 @@ void draw() {
    //println(temps[i]);
 
   if(temps[i]>260 && temps[i]<280){
-    white_size=30;
-    image(white,x,y,white_size,white_size);
-    still_white[i] = 30;
+    forth_size=40;
+    image(forth,x,y,forth_size,forth_size);
+    still_forth[i] = 30;
   }else{
-    if(still_white[i]>0){
-      white_size = still_white[i]/2;
-      image(white,x,y,white_size,white_size);
-      still_white[i]--;
+    if(still_forth[i]>0){
+      forth_size = still_forth[i]/2;
+      image(forth,x,y,forth_size,forth_size);
+      still_forth[i]--;
     }
   }
   if(temps[i]>280 && temps[i]<300){
-    leaf_size=30;
-    image(leaf,x,y,leaf_size,leaf_size);
-    still_leaf[i] = 30;
+    third_size=70;
+    image(third,x,y,third_size,third_size);
+    still_third[i] = 30;
   }else{
-    if(still_leaf[i]>0){
-      leaf_size = still_leaf[i]/2;
-      image(leaf,x,y,leaf_size,leaf_size);
-      still_leaf[i]--;
+    if(still_third[i]>0){
+      third_size = still_third[i]/2;
+      image(third,x,y,third_size,third_size);
+      still_third[i]--;
     }
   }
   if(temps[i]>300 && temps[i]<340){
-    flower.display(x,y);
+    //flower.display(x,y);
+    
+   second_size=120;
+    image(second,x,y,second_size,second_size);
+    still_second[i] = 30;
+  }else{
+    if(still_second[i]>0){
+      second_size = still_second[i]/2;
+      image(second,x,y,second_size,second_size);
+      still_second[i]--;
+    }
   }
   if(temps[i]>340){
-    if (still_rose[i] > 0) {
-      rose_size = rose_size + still_rose[i]/2;
+    if (still_middle[i] > 0) {
+      middle_size = middle_size + still_middle[i]/2;
     }
-    image(rose,x,y,rose_size,rose_size);
-    still_rose[i]++;
+    image(middle,x,y,middle_size,middle_size);
+    still_middle[i]++;
   }else{
-    still_rose[i] = 0;
-    rose_size = 30;
+    still_middle[i] = 0;
+    middle_size = 120;
   }
   x = x - 30;
   i++;
